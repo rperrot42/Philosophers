@@ -12,3 +12,7 @@
 
 #include "philo.h"
 
+int create_philo(t_args *args)
+{
+
+}

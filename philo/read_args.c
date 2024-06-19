@@ -24,12 +24,10 @@ t_args	*recover_args(char **argv, int argc)
 	args->time_eat = unsigned_atoi(argv[3]);
 	args->time_sleep = unsigned_atoi(argv[4]);
 	if (argc == 6)
-	{
 		args->nb_lunch = unsigned_atoi(argv[5]);
-	}
 	else
 		args->nb_lunch = 0;
-	if (!args->time_sleep || !args->time_eat || !args->nb_philo ||
+	if (!args->time_sleep || !args->time_eat || !args->nb_philo || \
 		!args->time_die || (argc == 6 && !args->nb_lunch))
 		return (free(args), NULL);
 	return (args);

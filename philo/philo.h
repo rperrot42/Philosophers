@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <stdbool.h>
 # include <limits.h>
 
 # define ERROR_NUMBERS_ARGS "The number of arguments is invalid.\n"
@@ -32,9 +33,9 @@ typedef struct s_args
 	unsigned int	time_die;
 }	t_args;
 
-size_t		ft_strlen(char *str);
-int			print_error(char *msg);
-unsigned int unsigned_atoi(char *str);
-t_args	*recover_args(char **argv, int argc);
+size_t			ft_strlen(char *str);
+int				print_error(char *msg);
+unsigned int	unsigned_atoi(char *str);
+t_args			*recover_args(char **argv, int argc);
 
 #endif

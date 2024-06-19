@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-unsigned int unsigned_atoi(char *str)
+unsigned int	unsigned_atoi(char *str)
 {
 	int			i;
 	long int	value;

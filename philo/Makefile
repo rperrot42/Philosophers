@@ -3,7 +3,8 @@ DIR_OBJS = .objs
 SRC = main.c \
 	print_error.c \
 	atoi.c \
-	read_args.c
+	read_args.c \
+	create_philo.c
 
 CC = cc
 

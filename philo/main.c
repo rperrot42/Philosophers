@@ -14,15 +14,16 @@
 
 int	main(int argc, char **argv)
 {
+	t_args	*args;
+
 	if (argc != 5 && argc != 6)
 		print_error(ERROR_NUMBERS_ARGS);
 	else
 	{
-		t_args *args = recover_args(argv, argc);
+		args = recover_args(argv, argc);
 		if (!args)
 			return (1);
 		printf("%u\n%u\n%u\n%u\n%u\n", args->nb_philo, args->time_die, args->time_eat, args->time_sleep, args->nb_lunch);
-		usleep(5000000);
 	}
 	return (0);
 }
