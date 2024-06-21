@@ -37,5 +37,5 @@ size_t			ft_strlen(char *str);
 int				print_error(char *msg);
 unsigned int	unsigned_atoi(char *str);
 t_args			*recover_args(char **argv, int argc);
-
+int create_philo(t_args *args);
 #endif
