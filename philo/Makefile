@@ -4,7 +4,8 @@ SRC = main.c \
 	print_error.c \
 	atoi.c \
 	read_args.c \
-	create_philo.c
+	create_philo.c \
+	init_time.c
 
 CC = cc
 

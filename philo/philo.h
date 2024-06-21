@@ -17,25 +17,60 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include <stdbool.h>
 # include <limits.h>
+# include <sys/time.h>
 
 # define ERROR_NUMBERS_ARGS "The number of arguments is invalid.\n"
 # define ERROR_VALUE_ARG "One of the arguments is not a unsigned int.\n"
 # define ERROR_VALUE_NULL "One of the arguments is 0\n"
 
-typedef struct s_args
+typedef struct s_mutex_bool
+{
+	bool			value_bool;
+	pthread_mutex_t	count_mutex;
+}	t_mutex_bool;
+
+typedef struct s_info_args
 {
 	unsigned int	time_sleep;
-	unsigned int	time_eat;
-	unsigned int	nb_philo;
-	unsigned int	nb_lunch;
 	unsigned int	time_die;
-}	t_args;
+	unsigned int	time_eat;
+	unsigned int	nb_lunch;
+}	t_info_args;
+
+typedef struct s_info_philo
+{
+	t_info_args		*info_args;
+	unsigned int	i_philo;
+	t_mutex_bool	*fork_left;
+	t_mutex_bool	*fork_right;
+	t_mutex_bool	*philo_die;
+	unsigned int	actual_lunch;
+	bool			think;
+	pthread_mutex_t	*bprintf;
+	long 			*time_start;
+}	t_info_philo;
+
+typedef struct all_info
+{
+	t_info_args		info_args;
+	unsigned int	nb_philo;
+	t_mutex_bool	*all_fork;
+	pthread_t		*all_pthread;
+	t_mutex_bool	philo_die;
+	pthread_mutex_t	bprintf;
+	long			time_start;
+	t_info_philo	*tab_info_philo;
+}	t_all_info;
+
+
 
 size_t			ft_strlen(char *str);
 int				print_error(char *msg);
 unsigned int	unsigned_atoi(char *str);
-t_args			*recover_args(char **argv, int argc);
-int create_philo(t_args *args);
+int				create_philo(t_all_info *args);
+t_all_info		*init_all_info(char **argv, int argc);
+void			free_all_info(t_all_info *all_info, int nb_fork_create);
+bool			ft_usleep(unsigned long time_wait, t_mutex_bool mutex_bool);
+unsigned long	get_time(void);
 #endif

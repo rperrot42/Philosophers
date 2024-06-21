@@ -6,7 +6,7 @@
 /*   By: rperrot <rperrot@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:48:22 by rperrot           #+#    #+#             */
-/*   Updated: 2024/04/15 14:48:27 by rperrot          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:52:47 by rperrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,29 @@
 
 void	*thread_routine(void *data)
 {
-	printf("je suis le philo %d\n", *((int *)data));
+	printf("je suis le philo %d\n", ((t_info_philo *)data)->i_philo);
 	return (NULL);
 }
 
-int create_philo(t_args *args)
+int create_philo(t_all_info *args)
 {
 	unsigned int i;
-	unsigned int *list_i;
-
-	list_i = malloc(args->nb_philo * (sizeof(unsigned  int )));
-	pthread_t	*list_tid;
 
 	i = 0;
-	list_tid = malloc(args->nb_philo * (sizeof(pthread_t)));
-	if (!list_tid)
-		return (1);
 	while (i < args->nb_philo)
 	{
-		list_i[i] = i;
-		pthread_create(&list_tid[i], NULL, thread_routine, &list_i[i]);
+		pthread_create(&args->all_pthread[i], NULL, thread_routine, &args->tab_info_philo[i]);
 		i += 2;
 	}
 	i = 1;
-	usleep(100);
+	usleep(10000);
 	while (i < args->nb_philo)
 	{
-		list_i[i] = i;
-		pthread_create(&list_tid[i], NULL, thread_routine, &list_i[i]);
+		pthread_create(&args->all_pthread[i], NULL, thread_routine, &args->tab_info_philo[i]);
 		i += 2;
 	}
 	i = -1;
 	while (++i < args->nb_philo)
-		pthread_join(list_tid[i], NULL);
+		pthread_join(args->all_pthread[i], NULL);
 	return (0);
 }
