@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+*.o
+minishell
+*/*.o
+philo/.objs
+a.out
+.vscode
+philo/philo
