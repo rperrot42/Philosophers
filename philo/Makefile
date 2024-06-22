@@ -6,11 +6,12 @@ SRC = main.c \
 	read_args.c \
 	create_philo.c \
 	init_time.c \
-	philo_action.c
+	philo_action.c \
+	utils.c
 
-CC = cc
+CC = gcc
 
-FLAGS = -Werror -Wextra -Wall -pthread -g3
+FLAGS = -Werror -Wextra -Wall -pthread -fsanitize=thread
 
 OBJS = $(addprefix $(DIR_OBJS)/, $(SRC:.c=.o))
 

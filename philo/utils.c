@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rperrot <rperrot@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 12:00:10 by rperrot           #+#    #+#             */
-/*   Updated: 2024/06/21 16:50:40 by rperrot          ###   ########.fr       */
+/*   Created: 2024/06/22 19:58:16 by rperrot           #+#    #+#             */
+/*   Updated: 2024/06/22 19:58:16 by rperrot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	change_value_mutex(t_mutex_bool *mutex_bool, bool value)
 {
-	t_all_info	*all_info;
+	pthread_mutex_lock(&mutex_bool->count_mutex);
+	mutex_bool->value_bool = value;
+	pthread_mutex_unlock(&mutex_bool->count_mutex);
+}
 
-	if (argc != 5 && argc != 6)
-		print_error(ERROR_NUMBERS_ARGS);
-	else
+void	check_fork_true(bool *exit, t_mutex_bool *fork)
+{
+	pthread_mutex_lock(&fork->count_mutex);
+	if (fork->value_bool == false)
 	{
-		all_info = init_all_info(argv, argc);
-		if (!all_info)
-			return (1);
-		create_philo(all_info);
-		free_all_info(all_info, -1);
+		fork->value_bool = true;
+		*exit = true;
 	}
-	return (0);
+	pthread_mutex_unlock(&fork->count_mutex);
 }

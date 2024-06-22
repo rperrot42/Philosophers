@@ -46,19 +46,21 @@ t_all_info	*init_all_info(char **argv, int argc)
 	if (pthread_mutex_init(&all_info->philo_die.count_mutex, NULL))
 		return (free(all_info), NULL);
 	if (pthread_mutex_init(&all_info->bprintf, NULL))
-		return (free(all_info), pthread_mutex_destroy(&all_info->bprintf), NULL);
+		return (free(all_info), \
+		pthread_mutex_destroy(&all_info->bprintf), NULL);
 	if (create_all_forks(all_info) == false)
 		return (NULL);
 	all_info->all_pthread = malloc(sizeof(pthread_t) * all_info->nb_philo);
 	if (!all_info->all_pthread)
 		return (free_all_info(all_info, -1), NULL);
-	create_all_philo_info(all_info);
+	if (create_all_philo_info(all_info) == false)
+		return (NULL);
 	return (all_info);
 }
 
 static bool	create_all_forks(t_all_info *all_info)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	all_info->all_fork = malloc(sizeof(t_mutex_bool) * all_info->nb_philo);
 	if (!all_info->all_fork)
@@ -99,7 +101,8 @@ static bool	create_all_philo_info(t_all_info *all_info)
 {
 	unsigned int	i;
 
-	all_info->tab_info_philo = malloc(sizeof(t_info_philo) * all_info->nb_philo);
+	all_info->tab_info_philo = \
+	malloc(sizeof(t_info_philo) * all_info->nb_philo);
 	if (!all_info->tab_info_philo)
 		return (free_all_info(all_info, -1), false);
 	i = -1;
@@ -111,7 +114,8 @@ static bool	create_all_philo_info(t_all_info *all_info)
 		all_info->tab_info_philo[i].info_args = &all_info->info_args;
 		all_info->tab_info_philo[i].philo_die = &all_info->philo_die;
 		all_info->tab_info_philo[i].fork_left = &all_info->all_fork[i];
-		all_info->tab_info_philo[i].fork_right = &all_info->all_fork[(i + 1) % all_info->nb_philo];
+		all_info->tab_info_philo[i].fork_right = \
+		&all_info->all_fork[(i + 1) % all_info->nb_philo];
 		all_info->tab_info_philo[i].time_start = &all_info->time_start;
 	}
 	return (true);

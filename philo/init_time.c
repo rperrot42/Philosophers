@@ -22,21 +22,29 @@ unsigned long	get_time(void)
 	return (long_time);
 }
 
-bool	ft_usleep(unsigned long time_wait, t_mutex_bool mutex_bool)
+bool	ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool)
 {
 	unsigned long	time_start;
-	unsigned long 	actual_time;
+	unsigned long	actual_time;
 
 	time_start = get_time();
 	actual_time = get_time();
 	while ((actual_time - time_start) / 1000 < time_wait)
 	{
-		pthread_mutex_lock(&mutex_bool.count_mutex);
-		if (mutex_bool.value_bool == true)
+		pthread_mutex_lock(&mutex_bool->count_mutex);
+		if (mutex_bool->value_bool == true)
+		{
+			pthread_mutex_unlock(&mutex_bool->count_mutex);
 			return (false);
-		pthread_mutex_unlock(&mutex_bool.count_mutex);
+		}
+		pthread_mutex_unlock(&mutex_bool->count_mutex);
 		usleep(100);
 		actual_time = get_time();
 	}
 	return (true);
+}
+
+long	get_diff_time(long start, long end)
+{
+	return ((end - start) / 1000);
 }
