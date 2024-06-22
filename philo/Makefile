@@ -5,7 +5,8 @@ SRC = main.c \
 	atoi.c \
 	read_args.c \
 	create_philo.c \
-	init_time.c
+	init_time.c \
+	philo_action.c
 
 CC = cc
 
