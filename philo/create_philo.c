@@ -50,7 +50,7 @@ info_philo->info_args->nb_lunch || !info_philo->info_args->nb_lunch))
 		info_philo->actual_lunch++;
 	}
 	if (exit == true)
-		printf_info("died", info_philo);
+		printf_info(DIED, info_philo);
 	return (NULL);
 }
 

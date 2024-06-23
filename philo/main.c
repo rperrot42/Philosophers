@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_all_info	*all_info;
 
 	if (argc != 5 && argc != 6)
-		print_error(ERROR_NUMBERS_ARGS);
+		return (print_error(ERROR_NUMBERS_ARGS), 1);
 	else
 	{
 		all_info = init_all_info(argv, argc);
