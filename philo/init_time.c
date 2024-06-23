@@ -38,7 +38,7 @@ bool	ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool)
 			return (false);
 		}
 		pthread_mutex_unlock(&mutex_bool->count_mutex);
-		usleep(200);
+		usleep(500);
 		actual_time = get_time();
 	}
 	return (true);

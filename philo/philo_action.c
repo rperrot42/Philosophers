@@ -34,7 +34,7 @@ bool	wait_fork(t_info_philo *info_philo, t_mutex_bool *fork)
 	error = false;
 	while (exit == false && error == false)
 	{
-		usleep(200);
+		usleep(500);
 		check_fork_true(&exit, fork);
 		pthread_mutex_lock(&info_philo->philo_die->count_mutex);
 		if (info_philo->philo_die->value_bool == true)

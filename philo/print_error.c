@@ -30,9 +30,8 @@ int	print_error(char *msg)
 void	printf_info(char *msg, t_info_philo *info_philo)
 {
 	pthread_mutex_lock(info_philo->bprintf);
-	printf("%s%ld %s%d %s\n", ORANGE, \
-	(get_time() - *info_philo->time_start) / 1000, BEIGE, \
-	info_philo->i_philo, msg);
+	printf("%ld %d %s\n", \
+	(get_time() - *info_philo->time_start) / 1000, info_philo->i_philo, msg);
 	pthread_mutex_unlock(info_philo->bprintf);
 }
 
