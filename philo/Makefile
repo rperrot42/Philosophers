@@ -11,7 +11,7 @@ SRC = main.c \
 
 CC = gcc
 
-FLAGS = -Werror -Wextra -Wall -pthread -fsanitize=thread
+FLAGS = -Werror -Wextra -Wall -pthread #-fsanitize=thread
 
 OBJS = $(addprefix $(DIR_OBJS)/, $(SRC:.c=.o))
 

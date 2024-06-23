@@ -49,6 +49,7 @@ typedef struct s_info_philo
 	long			last_lunch;
 	bool			think;
 	pthread_mutex_t	*bprintf;
+	int 			time_usleep;
 	long			*time_start;
 }	t_info_philo;
 
@@ -70,7 +71,8 @@ unsigned int	unsigned_atoi(char *str);
 int				create_philo(t_all_info *args);
 t_all_info		*init_all_info(char **argv, int argc);
 void			free_all_info(t_all_info *all_info, int nb_fork_create);
-bool			ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool);
+
+bool ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool, int time_usleep);
 unsigned long	get_time(void);
 bool			think_philo(t_info_philo *info_philo);
 bool			eat_philo(t_info_philo *info_philo);

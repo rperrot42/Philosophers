@@ -22,7 +22,7 @@ unsigned long	get_time(void)
 	return (long_time);
 }
 
-bool	ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool)
+bool ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool, int time_usleep)
 {
 	unsigned long	time_start;
 	unsigned long	actual_time;
@@ -38,7 +38,7 @@ bool	ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool)
 			return (false);
 		}
 		pthread_mutex_unlock(&mutex_bool->count_mutex);
-		usleep(100);
+		usleep(time_usleep);
 		actual_time = get_time();
 	}
 	return (true);

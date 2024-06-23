@@ -117,6 +117,7 @@ static bool	create_all_philo_info(t_all_info *all_info)
 		all_info->tab_info_philo[i].fork_right = \
 		&all_info->all_fork[(i + 1) % all_info->nb_philo];
 		all_info->tab_info_philo[i].time_start = &all_info->time_start;
+		all_info->tab_info_philo[i].time_usleep = 100 + all_info->info_args.time_die * 4;
 	}
 	return (true);
 }

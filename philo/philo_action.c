@@ -43,7 +43,7 @@ bool	wait_fork(t_info_philo *info_philo, t_mutex_bool *fork)
 	error = false;
 	while (exit == false && error == false)
 	{
-		usleep(42);
+		usleep(info_philo->time_usleep);
 		check_fork_true(&exit, fork);
 		pthread_mutex_lock(&info_philo->philo_die->count_mutex);
 		if (info_philo->philo_die->value_bool == true)
@@ -76,7 +76,7 @@ bool	eat_philo(t_info_philo *info_philo)
 		time_eat = info_philo->info_args->time_eat;
 	info_philo->last_lunch = get_time();
 	printf_info("eating", info_philo);
-	if (ft_usleep(time_eat, info_philo->philo_die) == false)
+	if (ft_usleep(time_eat, info_philo->philo_die, info_philo->time_usleep) == false)
 		return (false);
 	if (die_philo == true)
 		return (change_value_mutex(info_philo->philo_die, true), false);
@@ -100,7 +100,7 @@ get_diff_time(info_philo->last_lunch, get_time()))
 	else
 		time_sleep = info_philo->info_args->time_eat;
 	printf_info("sleeping", info_philo);
-	if (ft_usleep(time_sleep, info_philo->philo_die) == false)
+	if (ft_usleep(time_sleep, info_philo->philo_die, info_philo->time_usleep) == false)
 		return (false);
 	if (die_philo == true)
 		return (change_value_mutex(info_philo->philo_die, true), false);
