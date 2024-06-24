@@ -37,13 +37,14 @@ void	printf_info(char *msg, t_info_philo *info_philo)
 
 bool	print_info_error(char *msg, t_info_philo *info_philo)
 {
-	pthread_mutex_lock(&info_philo->philo_die->count_mutex);
-	if (info_philo->philo_die->value_bool == true)
+	pthread_mutex_lock(info_philo->mutex_philo_finish);
+	if (*info_philo->philo_finish == -1 || \
+	*info_philo->philo_finish == info_philo->nb_philo)
 	{
-		pthread_mutex_unlock(&info_philo->philo_die->count_mutex);
+		pthread_mutex_unlock(info_philo->mutex_philo_finish);
 		return (false);
 	}
 	printf_info(msg, info_philo);
-	pthread_mutex_unlock(&info_philo->philo_die->count_mutex);
+	pthread_mutex_unlock(info_philo->mutex_philo_finish);
 	return (true);
 }

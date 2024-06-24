@@ -43,7 +43,7 @@ t_all_info	*init_all_info(char **argv, int argc)
 	*all_info = (t_all_info){0};
 	if (recover_args(argv, argc, all_info) == false)
 		return (free(all_info), NULL);
-	if (pthread_mutex_init(&all_info->philo_die.count_mutex, NULL))
+	if (pthread_mutex_init(&all_info->mutex_philo_finish, NULL))
 		return (free(all_info), NULL);
 	if (pthread_mutex_init(&all_info->bprintf, NULL))
 		return (free(all_info), \
@@ -92,7 +92,7 @@ void	free_all_info(t_all_info *all_info, int nb_fork_create)
 		free(all_info->all_pthread);
 	if (all_info->tab_info_philo)
 		free(all_info->tab_info_philo);
-	pthread_mutex_destroy(&all_info->philo_die.count_mutex);
+	pthread_mutex_destroy(&all_info->mutex_philo_finish);
 	pthread_mutex_destroy(&all_info->bprintf);
 	free(all_info);
 }
@@ -112,11 +112,14 @@ static bool	create_all_philo_info(t_all_info *all_info)
 		all_info->tab_info_philo[i].bprintf = &all_info->bprintf;
 		all_info->tab_info_philo[i].i_philo = i;
 		all_info->tab_info_philo[i].info_args = &all_info->info_args;
-		all_info->tab_info_philo[i].philo_die = &all_info->philo_die;
+		all_info->tab_info_philo[i].philo_finish = &all_info->philo_finish;
+		all_info->tab_info_philo[i].mutex_philo_finish = \
+		&all_info->mutex_philo_finish;
 		all_info->tab_info_philo[i].fork_left = &all_info->all_fork[i];
 		all_info->tab_info_philo[i].fork_right = \
 		&all_info->all_fork[(i + 1) % all_info->nb_philo];
 		all_info->tab_info_philo[i].time_start = &all_info->time_start;
+		all_info->tab_info_philo[i].nb_philo = all_info->nb_philo;
 	}
 	return (true);
 }

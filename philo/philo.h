@@ -24,9 +24,9 @@
 # define ERROR_VALUE_ARG "One of the arguments is not a unsigned int.\n"
 # define ERROR_VALUE_NULL "One of the arguments is 0\n"
 # define DIED "died"
-# define SLEEP "sleeping"
-# define EAT "eating"
-# define TAKE_FORK "is taken a fork"
+# define SLEEP "is sleeping"
+# define EAT "is eating"
+# define TAKE_FORK "has taken a fork"
 # define THINK "is thinking"
 
 typedef struct s_mutex_bool
@@ -49,11 +49,13 @@ typedef struct s_info_philo
 	unsigned int	i_philo;
 	t_mutex_bool	*fork_left;
 	t_mutex_bool	*fork_right;
-	t_mutex_bool	*philo_die;
+	pthread_mutex_t	*mutex_philo_finish;
 	unsigned int	actual_lunch;
 	long			last_lunch;
+	int				*philo_finish;
 	pthread_mutex_t	*bprintf;
 	long			*time_start;
+	int				nb_philo;
 }	t_info_philo;
 
 typedef struct all_info
@@ -62,8 +64,9 @@ typedef struct all_info
 	unsigned int	nb_philo;
 	t_mutex_bool	*all_fork;
 	pthread_t		*all_pthread;
-	t_mutex_bool	philo_die;
 	pthread_mutex_t	bprintf;
+	pthread_mutex_t	mutex_philo_finish;
+	int				philo_finish;
 	long			time_start;
 	t_info_philo	*tab_info_philo;
 }	t_all_info;
@@ -74,8 +77,10 @@ unsigned int	unsigned_atoi(char *str);
 int				create_philo(t_all_info *args);
 t_all_info		*init_all_info(char **argv, int argc);
 void			free_all_info(t_all_info *all_info, int nb_fork_create);
-
-bool			ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool);
+void			modif_mutex_int(int value, t_info_philo *info_philo);
+bool			modif_mutex_int_die(pthread_mutex_t *mutex, \
+int *pt_value, int nb_philo);
+bool			ft_usleep(unsigned long time_wait, t_info_philo *info_philo);
 unsigned long	get_time(void);
 bool			think_philo(t_info_philo *info_philo);
 bool			eat_philo(t_info_philo *info_philo);

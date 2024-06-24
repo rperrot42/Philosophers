@@ -22,7 +22,7 @@ unsigned long	get_time(void)
 	return (long_time);
 }
 
-bool	ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool)
+bool	ft_usleep(unsigned long time_wait, t_info_philo *info_philo)
 {
 	unsigned long	time_start;
 	unsigned long	actual_time;
@@ -31,13 +31,14 @@ bool	ft_usleep(unsigned long time_wait, t_mutex_bool *mutex_bool)
 	actual_time = get_time();
 	while ((actual_time - time_start) / 1000 < time_wait)
 	{
-		pthread_mutex_lock(&mutex_bool->count_mutex);
-		if (mutex_bool->value_bool == true)
+		pthread_mutex_lock(info_philo->mutex_philo_finish);
+		if (*info_philo->philo_finish == -1 || \
+		*info_philo->philo_finish == info_philo->nb_philo)
 		{
-			pthread_mutex_unlock(&mutex_bool->count_mutex);
+			pthread_mutex_unlock(info_philo->mutex_philo_finish);
 			return (false);
 		}
-		pthread_mutex_unlock(&mutex_bool->count_mutex);
+		pthread_mutex_unlock(info_philo->mutex_philo_finish);
 		usleep(500);
 		actual_time = get_time();
 	}

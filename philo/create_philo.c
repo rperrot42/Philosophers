@@ -38,19 +38,20 @@ void	*thread_routine(void *data)
 	if (info_philo->i_philo % 2 == 1)
 		usleep(10000);
 	exit = false;
-	while (exit == false && (info_philo->actual_lunch < \
-info_philo->info_args->nb_lunch || !info_philo->info_args->nb_lunch))
+	while (exit == false)
 	{
 		if (think_philo(info_philo) == false)
 			exit = true;
 		if (exit == false && eat_philo(info_philo) == false)
 			exit = true;
+		info_philo->actual_lunch++;
+		if (exit == false && info_philo->actual_lunch == info_philo->info_args->\
+nb_lunch && modif_mutex_int_die(info_philo->mutex_philo_finish, \
+info_philo->philo_finish, 0) == false)
+			exit = true;
 		if (exit == false && sleep_philo(info_philo) == false)
 			exit = true;
-		info_philo->actual_lunch++;
 	}
-	if (exit == true)
-		printf_info(DIED, info_philo);
 	return (NULL);
 }
 
