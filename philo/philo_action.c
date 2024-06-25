@@ -85,11 +85,12 @@ bool	sleep_philo(t_info_philo *info_philo)
 	if (info_philo->info_args->time_die < info_philo->info_args->time_sleep + \
 get_diff_time(info_philo->last_lunch, get_time()))
 	{
-		time_sleep = info_philo->info_args->time_die;
+		time_sleep = info_philo->info_args->time_die - \
+		info_philo->info_args->time_eat;
 		die_philo = true;
 	}
 	else
-		time_sleep = info_philo->info_args->time_eat;
+		time_sleep = info_philo->info_args->time_sleep;
 	if (print_info_error(SLEEP, info_philo) == false)
 		return (false);
 	if (ft_usleep(time_sleep, info_philo) == false)

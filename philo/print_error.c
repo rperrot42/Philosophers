@@ -31,7 +31,8 @@ void	printf_info(char *msg, t_info_philo *info_philo)
 {
 	pthread_mutex_lock(info_philo->bprintf);
 	printf("%ld %d %s\n", \
-	(get_time() - *info_philo->time_start) / 1000, info_philo->i_philo, msg);
+	(get_time() - *info_philo->time_start) / 1000, info_philo->i_philo + 1, \
+	msg);
 	pthread_mutex_unlock(info_philo->bprintf);
 }
 
